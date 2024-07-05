@@ -1,0 +1,14 @@
+# powerbi_embeded_resource-js:
+#   filter: rjsmin
+#   output: ckanext-powerbi_embeded_resource/%(version)s-powerbi_embeded_resource.js
+#   contents:
+#     - js/powerbi_embeded_resource.js
+#   extra:
+#     preload:
+#       - base/main
+
+# powerbi_embeded_resource-css:
+#   filter: cssrewrite
+#   output: ckanext-powerbi_embeded_resource/%(version)s-powerbi_embeded_resource.css
+#   contents:
+#     - css/powerbi_embeded_resource.css
