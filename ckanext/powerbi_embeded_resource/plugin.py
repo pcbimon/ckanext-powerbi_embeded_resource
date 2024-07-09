@@ -3,7 +3,8 @@ import ckan.plugins.toolkit as toolkit
 
 
 class PowerbiEmbededResourcePlugin(plugins.SingletonPlugin):
-    plugins.implements(plugins.IConfigurer)
+    plugins.implements(plugins.IConfigurer, inherit=True)
+    plugins.implements(plugins.IDatasetForm)
 
     # IConfigurer
 
@@ -12,3 +13,23 @@ class PowerbiEmbededResourcePlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic',
             'powerbi_embeded_resource')
+    def create_package_schema(self):
+        schema = super(PowerbiEmbededResourcePlugin, self).create_package_schema()
+        schema.update({
+            'report_id': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_extras')],
+        })
+        return schema
+
+    def update_package_schema(self, schema):
+        schema.update({
+            'report_id': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_from_extras')],
+        })
+        return schema
+
+    def is_fallback(self):
+        return True
+
+    def package_types(self):
+        return []
