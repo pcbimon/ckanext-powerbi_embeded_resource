@@ -13,20 +13,23 @@ class PowerbiEmbededResourcePlugin(plugins.SingletonPlugin, toolkit.DefaultDatas
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic',
             'powerbi_embeded_resource')
-    def create_package_schema(self):
-        schema = super(PowerbiEmbededResourcePlugin, self).create_package_schema()
+    def _modify_package_schema(self, schema):
         schema.update({
-            'power_bi_report_id': [toolkit.get_validator('ignore_missing'),
-                          toolkit.get_converter('convert_to_extras')],
+            'custom_text': [toolkit.get_validator('ignore_missing'),
+                            toolkit.get_converter('convert_to_extras')]
         })
+        return schema
+    
+    def create_package_schema(self):
+        schema = super(PowerbiEmbededResourcePlugin, self).update_package_schema()
+        schema = self._modify_package_schema(schema)
         return schema
 
     def update_package_schema(self, schema):
-        schema.update({
-            'power_bi_report_id': [toolkit.get_validator('ignore_missing'),
-                          toolkit.get_converter('convert_from_extras')],
-        })
+        schema = super(PowerbiEmbededResourcePlugin, self).create_package_schema()
+        schema = self._modify_package_schema(schema)
         return schema
+    
     def show_package_schema(self):
         schema = super(PowerbiEmbededResourcePlugin, self).show_package_schema()
         schema.update({
