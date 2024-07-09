@@ -1,0 +1,4 @@
+{% ckan_extends %}
+{% block package_basic_fields_power_bi_report_id %}
+  {{ form.input('power_bi_report_id', label=_('Power BI Report ID'), id='field-power_bi_report_id', placeholder=_('custom text'), value=data.power_bi_report_id, error=errors.power_bi_report_id, classes=['control-medium']) }}
+{% endblock %}
