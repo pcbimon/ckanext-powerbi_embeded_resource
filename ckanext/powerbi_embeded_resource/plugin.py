@@ -18,10 +18,10 @@ class PowerbiEmbededResourcePlugin(plugins.SingletonPlugin, toolkit.DefaultDatas
             'power_bi_report_id': [toolkit.get_validator('ignore_missing'),
                             toolkit.get_converter('convert_to_extras')]
         })
-        # # Add our custom_resource_text metadata field to the schema
-        # schema['resources'].update({
-        #     'power_bi_report_id' : [ toolkit.get_validator('ignore_missing') ]
-        # })
+        # # Add our power_bi_report_id_text metadata field to the schema
+        schema['resources'].update({
+            'power_bi_report_id_text' : [ toolkit.get_validator('ignore_missing') ]
+        })
         return schema
     
     def create_package_schema(self):
@@ -39,6 +39,9 @@ class PowerbiEmbededResourcePlugin(plugins.SingletonPlugin, toolkit.DefaultDatas
         schema.update({
             'power_bi_report_id': [toolkit.get_converter('convert_from_extras'),
                             toolkit.get_validator('ignore_missing')]
+        })
+        schema['resources'].update({
+            'power_bi_report_id_text' : [ toolkit.get_validator('ignore_missing') ]
         })
         return schema
     def is_fallback(self):
