@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block extras %}
+  {% if pkg_dict.power_bi_report_id %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Power BI Report ID") }}</th>
+      <td class="dataset-details">{{ pkg_dict.power_bi_report_id }}</td>
+    </tr>
+  {% endif %}
+{% endblock %}
